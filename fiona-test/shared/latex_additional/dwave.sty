@@ -1,0 +1,422 @@
+% !Mode:: "TeX:UTF-8"
+%dwave.sty
+%latex customizations to be called in preamble, after sphinx.sty.
+
+
+%Caption style
+\RequirePackage[font=small,bf,figurename=Figure]{caption}%For changing caption margins
+
+
+
+%%%%% Colors.  Define colors for title, section headers, header and footer.
+%
+%
+\RequirePackage{gillius2,mathpazo}%Fonts
+\RequirePackage{etoolbox}%For making modifications
+\RequirePackage{xcolor}
+\definecolor{titlecolor}{RGB}{0,51,102}
+\definecolor{sectioncolor}{RGB}{0,51,102}
+\definecolor{headcolor}{RGB}{119,119,119}
+\definecolor{footcolor}{RGB}{119,119,119}
+%Sections font and colour
+
+
+\AtBeginDocument{\hypersetup{
+    colorlinks = true,
+    allcolors = {titlecolor}
+}}
+%
+%
+%%%%% Colors
+
+
+\patchcmd{\@fancyhead}{\rlap}{\color{headcolor}\rlap}{}{}
+\patchcmd{\headrule}{\hrule}{\color{headcolor}\hrule}{}{}
+\patchcmd{\@fancyfoot}{\rlap}{\color{footcolor}\rlap}{}{}
+\patchcmd{\footrule}{\hrule}{\color{footcolor}\hrule}{}{}
+
+\fancypagestyle{plain}{
+\renewcommand{\headrulewidth}{0pt}%
+\renewcommand{\footrulewidth}{0pt}%
+\fancyhf{}
+\fancyhfoffset{\hangingindent}%Makes the headers and footers wider
+\fancyfoot[RE,LO]{{\small\sf\nouppercase{\seriesname~\dwavepart\\\legalfooter}}}
+%\fancyfoot[RE,LO]{{\small\sf\nouppercase{\legalfooter}}}
+\fancyfoot[LE,RO]{{\small\sf\thepage}}
+}
+
+
+
+\fancypagestyle{normal}{
+  \fancyhf{}
+  \fancyhfoffset{\hangingindent}%Makes the headers and footers wider
+  \fancyfoot[LE,RO]{{\small\sf\thepage}}
+  \fancyfoot[RE,LO]{{\small\sf\nouppercase{\seriesname~\dwavepart\\\legalfooter}}}
+%  \fancyfoot[C]{{\small\sf\nouppercase{\legalfooter}}}
+  \fancyhead[RE,LO]{{\small\sf \@title}}
+
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  % define chaptermark with \@chappos when \@chappos is available for Japanese
+  \spx@ifundefined{@chappos}{}
+  {\def\chaptermark##1{\markboth{\@chapapp\space\thechapter\space\@chappos\space ##1}{}}}
+
+}
+
+\fancypagestyle{empty}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[RE,LO]{{\small\sf\nouppercase{\seriesname~\dwavepart\\\legalfooter}}}
+}
+
+
+\fancypagestyle{tp}{%titlepage
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[RE,LO]{{\small\sf\nouppercase{\seriesname~\dwavepart\\\legalfooter}}}
+  %\fancyfoot[C]{{\small\sf\nouppercase{\legalfooter}}}
+  %\fancyfoot[L]{{\small\sf\nouppercase{\seriesname~\dwavepart\\\legalfooter}}}
+}
+
+
+
+
+
+
+%
+%
+%%%%% Headers and footers
+
+\titleformat{\section}
+{\huge\color{sectioncolor}\sffamily\selectfont\raggedright}{\Overhang{\thesection}}{\TitleIndent}{}
+\titleformat{\subsection}
+{\LARGE\color{sectioncolor}\sffamily\selectfont\raggedright}{\Overhang{\thesubsection}}{\TitleIndent}{}
+\titleformat{\subsubsection}
+{\Large\color{sectioncolor}\sffamily\selectfont\raggedright}{\Overhang{\thesubsubsection}}{\TitleIndent}{}
+
+\renewcommand\tableofcontents{%
+  \null{\huge\sffamily\color{sectioncolor}{\contentsname}}\par
+  \@mkboth{\MakeUppercase\contentsname}{\MakeUppercase\contentsname}\vspace{.25in}%
+  \@starttoc{toc}%
+\pagestyle{empty}\cleardoublepage\pagestyle{normal}\pagenumbering{arabic}
+}
+
+
+
+\def\restrictions{
+  \textbf{Notice and Disclaimer}
+  \newline
+   {\small D-Wave Systems Inc. (D-Wave), its subsidiaries and affiliates,
+makes commercially reasonable efforts to ensure that the information
+in this document is accurate and up to date, but errors may occur.
+NONE OF D-WAVE SYSTEMS INC., its subsidiaries and affiliates, OR ANY OF ITS
+RESPECTIVE DIRECTORS, EMPLOYEES, AGENTS, OR OTHER REPRESENTATIVES WILL BE
+LIABLE FOR DAMAGES, CLAIMS, EXPENSES OR OTHER COSTS (INCLUDING WITHOUT
+LIMITATION LEGAL FEES) ARISING OUT OF OR IN CONNECTION WITH THE USE OF THIS
+DOCUMENT OR ANY INFORMATION CONTAINED OR REFERRED TO IN IT. THIS IS A
+COMPREHENSIVE LIMITATION OF LIABILITY THAT APPLIES TO ALL DAMAGES OF ANY KIND,
+INCLUDING (WITHOUT LIMITATION) COMPENSATORY, DIRECT, INDIRECT, EXEMPLARY,
+PUNITIVE AND CONSEQUENTIAL DAMAGES, LOSS OF PROGRAMS OR DATA, INCOME OR PROFIT,
+LOSS OR DAMAGE TO PROPERTY, AND CLAIMS OF THIRD PARTIES.
+
+D-Wave reserves the right to alter this document and other referenced
+documents without notice from time to time and at its sole discretion.
+D-Wave reserves its intellectual property rights in and to this document
+and its proprietary technology, including copyright, trademark rights,
+industrial design rights, and patent rights. D-Wave trademarks used herein
+include D-Wave\textregistered, D-Wave 2X\textsuperscript{TM}, D-Wave 2000Q\textsuperscript{TM},
+and the D-Wave logo (the D-Wave Marks).
+Other marks used in this document are the property of their respective owners.
+D-Wave does not grant any license, assignment, or other grant of interest in
+or to the copyright of this document, the D-Wave Marks, any other marks used in
+this document, or any other intellectual property rights used or referred to herein,
+except as \mbox{D-Wave} may expressly provide in a written agreement.
+This document may refer to other documents, including documents subject to the rights
+of third parties. Nothing in this document constitutes a grant by D-Wave of any license,
+assignment, or any other interest in the copyright or other intellectual property rights
+of such other documents. Any use of such other documents is subject to the rights of
+D-Wave and/or any applicable third parties in those documents.
+
+
+All installation, service, support, and maintenance of and for the D-Wave System
+must be performed by qualified factory-trained D-Wave personnel.
+Do not move, repair, alter, modify, or change the \mbox{D-Wave} System. If the equipment is used
+in a manner not specified by D-Wave, the protection provided by the equipment may be impaired.
+Do not provide access to the customer site to anyone other than authorized and qualified personnel.
+Failure to follow these guidelines may result in disruption of service, extended downtime, damage
+to equipment (customer's, D-Wave's, and/or third parties'), injury, loss of life, or loss of property.}\clearpage}
+
+
+
+
+\@ifpackagelater{titlesec}{2016/03/21}{%
+  % Package titlesec is on version 2.10.2 or higher, nothing to do %
+}{%
+ % Check if package titlesec is on version 2.10.1 %
+ \@ifpackagelater{titlesec}{2016/03/15}{%
+    %Package titlesec on version 2.10.1, patch accordingly %
+    \patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}%
+    \patchcmd{\ttlh@hang}{\noindent}{}{}{}%
+  }{%
+    % Package titlsecon is on version 2.10.0 or lower, nothing to do %
+  }%
+}
+
+
+
+% Make the hanging indent for section numbers.
+\newlength\TitleOverhang
+\newlength\TitleIndent
+\setlength\TitleOverhang{0.75in}
+\setlength\TitleIndent{0in}
+
+\newcommand\Overhang[1]{%
+  \llap{\makebox[\TitleOverhang][l]{#1}}%
+}
+
+
+\titleformat{\section}
+{\huge\color{sectioncolor}\sffamily\selectfont\raggedright}{\Overhang{\thesection}}{\TitleIndent}{}
+ \titleformat{\subsection}
+ {\LARGE\color{sectioncolor}\sffamily\selectfont\raggedright}{\Overhang{\thesubsection}}{\TitleIndent}{}
+ \titleformat{\subsubsection}
+ {\Large\color{sectioncolor}\sffamily\selectfont\raggedright}{\Overhang{\thesubsubsection}}{\TitleIndent}{}
+%
+%
+%%%%% Section headings
+
+
+
+
+
+
+
+
+
+%Make the chapter headings
+\ChNameAsIs
+\ChTitleVar{\LARGE\sf\color{headcolor}}
+\ChNumVar{\LARGE\sf\color{headcolor}}
+\ChTitleUpperCase
+
+\makeatletter
+\ChRuleWidth{2pt} % Set RW=4pt
+\ChNameUpperCase % Make name uppercase
+\renewcommand{\DOCH}{%
+\flushright\Large\sffamily\color{headcolor}\FmN{\@chapapp}\hspace{1.5ex}\Huge\thechapter\par
+\vspace{-.15in}\textcolor{headcolor}{\rule[.15\baselineskip]{\linewidth}{1pt}}
+}%\linespread{.9}%If title spans multiple lines, make the spread tighter.
+%\sffamily\LARGE\color{titlecolor}\@title\\
+%\linespread{\mylinespread}%Reset line spread
+%\renewcommand{\DOCH}{%
+%\setlength{\fboxrule}{\RW} % Let fbox lines be controlled by
+%% \ChRuleWidth
+%\fbox{\CNV\FmN{\@chapapp}\space \CNoV\thechapter}\par\nobreak
+%\vskip 40\p@}
+\renewcommand{\DOTI}[1]{%
+\linespread{.9}%If title spans multiple lines, make the spread tighter.
+\flushright\CTV\FmTi{#1}\par\nobreak
+\linespread{\mylinespread}%Reset line spread
+\vskip 60\p@}
+\renewcommand{\DOTIS}[1]{%
+\vspace{-.15in}\textcolor{headcolor}{\rule[.15\baselineskip]{\linewidth}{1pt}}
+\linespread{.9}%If title spans multiple lines, make the spread tighter.
+\flushright\CTV\FmTi{#1}\par\nobreak
+\linespread{\mylinespread}%Reset line spread
+\vskip 40\p@}
+\makeatother
+
+
+
+
+
+
+\newcommand{\seriesname}{D-Wave User Manual}
+\makeatletter
+ \renewcommand{\maketitle}{%
+
+   \begin{titlepage}\thispagestyle{tp}
+     \newgeometry{margin=\mysmallmargin,top=0.125in,bottom=1.25in}
+     \ \vspace{.75in}\par\resizebox{3.3in}{!}{\sphinxlogo}
+
+     \vspace{1.2in}%
+     \linespread{.9}%If title spans multiple lines, make the spread tighter.
+     \sffamily\LARGE\color{titlecolor}\@title\\
+     \vspace{0in}\textcolor{lightgray}{\rule[.15\baselineskip]{\linewidth}{1pt}}
+     \linespread{\mylinespread}%Reset line spread
+     \sffamily\bfseries\Large\color{lightgray}
+     USER MANUAL\\
+     \vspace{0in}\textcolor{lightgray}{\rule[0.4\baselineskip]{\linewidth}{1pt}}
+
+     \vspace{-.05in}
+
+     \normalfont\sffamily\normalsize\color{headcolor}\the\year-%
+     \ifnum\the\month<10 0\fi\the\month-%
+     \ifnum\the\day<10 0\fi\the\day\\
+     \vfill\flushleft
+     %\normalfont\sffamily\small\color{headcolor}\dwavepart\hfill\legalfooter\hfill\seriesname\\
+     %\normalfont\sffamily\small\color{headcolor}\dwavepart\hfill\legalfooter\hfill\seriesname\\
+     %{\small\sf{\seriesname~\dwavepart\\\legalfooter}}
+
+     \makecontactbox
+     \iftoggle{printoverview}{\makeoverviewbox}{}%
+   \end{titlepage}
+   \setmygeom
+   \restrictions
+ }%maketitle
+
+\makeatother
+
+
+
+
+
+
+%%%%% Area on title page for contact information
+%
+%
+\RequirePackage[absolute]{textpos}%For placing information on the title page
+\newcommand{\makecontactbox}{%
+  \setlength{\TPHorizModule}{1in}
+  \setlength{\TPVertModule}{\TPHorizModule}
+  \begin{textblock}{2}(6.25,7.25)%{width}(x,y) in inches (from top left)
+    \textcolor{lightgray}{\rule{1pt}{3in}}%Grey rule
+    \raisebox{3in}{\hspace{.25in}\begin{minipage}[t]{2in}
+        \normalfont\sffamily\bfseries\footnotesize\color{titlecolor}CONTACT\\
+
+        \normalfont\sffamily\bfseries\footnotesize\color{black} Corporate Headquarters\\
+        \normalfont\sffamily\footnotesize\color{black} 3033 Beta Ave\\
+        Burnaby, BC V5G 4M9\\
+        Canada\\
+        Tel.\ 604-630-1428\\
+
+        \normalfont\sffamily\bfseries\footnotesize\color{black} US Office\\
+        \normalfont\sffamily\footnotesize\color{black} 2650 E Bayshore Rd\\
+        Palo Alto, CA 94303\\
+
+        \normalfont\sffamily\bfseries\footnotesize\color{black} Email: %
+        \normalfont\sffamily\footnotesize\color{black} info@dwavesys.com\\
+
+        \normalfont\sffamily\bfseries\footnotesize\color{titlecolor} www.dwavesys.com %
+
+      \end{minipage}}
+  \end{textblock}
+}%makecontactbox
+%
+%%%%%
+
+
+\newtoggle{printoverview}
+\togglefalse{printoverview}
+\newtoks\overview
+\renewcommand{\abstract}[1]{%If someone tries an abstract, make it the overview.
+  \toggletrue{printoverview}
+  \overview{#1}%
+}
+
+
+
+
+
+
+
+
+%%%%% Area on title page for overview
+%
+%
+\newcommand{\makeoverviewbox}{%
+  \setlength{\TPHorizModule}{1in}
+  \setlength{\TPVertModule}{\TPHorizModule}
+  \begin{textblock}{4}(0.75,7.25)%{width}(x,y) in inches (from top left)
+    \begin{minipage}[t]{4in}
+      \normalfont\sffamily\large\color{titlecolor}Overview\\\vspace{-1ex}
+
+      \normalfont\sffamily\normalsize\color{black}\the\overview
+    \end{minipage}
+  \end{textblock}
+}%makeoverviewbox
+
+
+
+
+
+%%% Set custom lengths for geometry package
+%
+%
+\RequirePackage{geometry}
+\newcommand{\deflen}[2]{%
+  \expandafter\newlength\csname #1\endcsname
+  \expandafter\setlength\csname #1\endcsname{#2}%
+}
+\newlength{\hangingindent}
+\setlength\hangingindent{0.75in}
+
+\RequirePackage{calc}
+
+
+\deflen{myrmargin}{.75in+\hangingindent}
+\deflen{mylmargin}{.75in+\hangingindent}
+\deflen{mysmallmargin}{0.75in}
+\deflen{mytmargin}{1.25in}
+\deflen{mybmargin}{1.25in}
+\deflen{myfootskip}{0.5in}
+\deflen{myheadsep}{0.4in}
+\deflen{myheadheight}{1in}
+\def\mylinespread{1.05}
+
+
+\newcommand{\setmygeom}{%
+  \newgeometry{lmargin=\mylmargin,rmargin=\myrmargin,tmargin=\mytmargin,bmargin=\mybmargin,footskip=\myfootskip,headsep=\myheadsep,headheight=\myheadheight}
+}
+\setmygeom
+\parskip=5pt
+\parindent=0pt
+%
+%
+%%%%% End custom geometry
+
+
+
+
+
+
+
+
+% %%%%% Table of contents format
+% %
+% %
+\RequirePackage[titles]{tocloft}
+%\renewcommand{\cfttoctitlefont}{\normalfont\sffamily\huge\color{sectioncolor}\selectfont}
+
+%\spx@ifundefined{@chappos}{}{
+%  \renewcommand{\cftchapfont}{\normalfont\sffamily\selectfont}
+%  \renewcommand{\cftchappagefont}{\normalfont\bfseries\sffamily\selectfont}        %
+%}
+
+\makeatletter%
+\@ifclassloaded{report}%
+               {
+                 \renewcommand{\cftchapfont}{\normalfont\sffamily\selectfont}
+                 \renewcommand{\cftchappagefont}{\normalfont\bfseries\sffamily\selectfont}
+               }%
+               {}%
+\makeatother%
+
+
+\renewcommand{\cftsecfont}{\normalfont\sffamily\selectfont}
+\renewcommand{\cftsubsecfont}{\normalfont\sffamily\selectfont}
+\renewcommand{\cftsubsubsecfont}{\normalfont\sffamily\selectfont}
+\renewcommand{\cftsecpagefont}{\normalfont\sffamily\selectfont}
+\renewcommand{\cftsubsecpagefont}{\normalfont\sffamily\selectfont}
+\renewcommand{\cftsubsubsecpagefont}{\normalfont\sffamily\selectfont}
+% %
+% %
+% %%%%% Table of contents
+
+
+
+
+%Make the overview
+\AtBeginDocument{\abstract{\dwaveoverview}}
